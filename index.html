@@ -3,7 +3,21 @@
 
 <head>
   <title>My first Vue app</title>
+
+  <!-- Add Vue to the Project -->
   <script src="https://unpkg.com/vue"></script>
+
+  <!-- Add Bootstrap and Bootstrap-Vue CSS to the <head> section -->
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"/>
+  
+  <!-- Add Vue and Bootstrap-Vue JS just before the closing </body> tag -->
+  <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+  
+  <!-- Polyfill for old and stupid browsers *cough* IE *cough* -->
+  <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+
 </head>
 
 <body>
@@ -11,9 +25,9 @@
     {{ message }}<br>
     {{ getScore }} score [DEBUG: {{ counter }}] <br>
     <div v-if="factory.count">{{ factory.count }} factories <br></div>
-    <button @click="addManual">+ {{ buttonValue }}</button><br>
-    buy a factory for <button @click="buyFactory" :disabled="counter < factory.price">{{ factory.price }}</button><br>
-    improve a factory for <button @click="improveFactory" :disabled="counter < factory.improvmentprice">{{ factory.improvmentprice }}</button><br>
+    <b-button @click="addManual" variant="primary">+ {{ buttonValue }}</b-button><br>
+    buy a factory for <b-button @click="buyFactory"  variant="primary" :disabled="counter < factory.price">{{ factory.price }}</b-button><br>
+    improve a factory for <b-button @click="improveFactory"  variant="primary" :disabled="counter < factory.improvmentprice">{{ factory.improvmentprice }}</b-button><br>
   </div>
 
   <script>
