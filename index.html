@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{ message }}<br>
+    {{ getScore }} score [DEBUG: {{ counter }}] <br>
+    <div v-if="factory.count">{{ factory.count }} factories <br></div>
+    <button @click="addManual">+ {{ buttonValue }}</button><br>
+    buy a factory for <button @click="buyFactory" :disabled="counter < factory.price">{{ factory.price }}</button><br>
+    improve a factory for <button @click="improveFactory" :disabled="counter < factory.improvmentprice">{{ factory.improvmentprice }}</button><br>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app', 
+      data: {
+        message: 'Hello Vue!',
+        counter: 0,
+        increment: 0.00,
+        buttonValue: 1,
+        factory: {
+          count: 0,
+          price: 100,
+          strenght: 0.001, 
+          improvmentprice: 500,
+        }
+      },
+      created: function () {
+        setInterval(() => {
+          this.update()
+        }, 10)
+      },
+      computed: {
+        getScore: function () {
+          return Math.floor(this.counter)
+        }
+      },
+      methods: {
+        update: function () {
+          this.counter += this.increment
+        },
+        addManual: function () {
+          this.counter += this.buttonValue
+        },
+        buyFactory: function () {
+          if (this.counter >= this.factory.price) {
+            this.counter -= this.factory.price
+            this.factory.count++
+            this.factory.price *= 1.2
+            this.increment = this.factory.count * this.factory.strenght
+          }
+        },
+        improveFactory: function () {
+          if (this.counter >= this.factory.improvmentprice) {
+            this.counter -= this.factory.improvmentprice
+            this.factory.strenght*=2
+            this.factory.improvmentprice *= 1.2
+            this.increment = this.factory.count * this.factory.strenght
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
